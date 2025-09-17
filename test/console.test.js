@@ -117,3 +117,41 @@ describe('format specifiers', () => {
     assert.strictEqual(logs[0].msg, 'Progress: 50%')
   })
 })
+
+describe('method destructuring', () => {
+  let logs = []
+  const logger = pino({
+    level: 'info'
+  }, {
+    write: (chunk) => {
+      logs.push(JSON.parse(chunk))
+    }
+  })
+  const console = new Console(logger)
+
+  test('destructured log method should work', () => {
+    logs = []
+    const { log } = console
+    log('destructured log message')
+
+    assert.strictEqual(logs.length, 1)
+    assert.strictEqual(logs[0].msg, 'destructured log message')
+  })
+
+  test('destructured methods should maintain correct this context', () => {
+    logs = []
+    const { warn, error, time, timeEnd, count } = console
+
+    warn('warning message')
+    error('error message')
+    time('test')
+    timeEnd('test')
+    count('counter')
+
+    assert.strictEqual(logs.length, 4)
+    assert.strictEqual(logs[0].msg, 'warning message')
+    assert.strictEqual(logs[1].msg, 'error message')
+    assert.ok(logs[2].msg.includes('test:'))
+    assert.strictEqual(logs[3].msg, 'counter: 1')
+  })
+})
