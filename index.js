@@ -24,6 +24,30 @@ class Console {
 
     // Add reference to constructor for Node.js Console compatibility
     this.Console = Console
+
+    // Bind all public methods to maintain 'this' context when destructured
+    this.log = this.log.bind(this)
+    this.info = this.info.bind(this)
+    this.warn = this.warn.bind(this)
+    this.error = this.error.bind(this)
+    this.debug = this.debug.bind(this)
+    this.assert = this.assert.bind(this)
+    this.trace = this.trace.bind(this)
+    this.time = this.time.bind(this)
+    this.timeEnd = this.timeEnd.bind(this)
+    this.timeLog = this.timeLog.bind(this)
+    this.count = this.count.bind(this)
+    this.countReset = this.countReset.bind(this)
+    this.group = this.group.bind(this)
+    this.groupCollapsed = this.groupCollapsed.bind(this)
+    this.groupEnd = this.groupEnd.bind(this)
+    this.table = this.table.bind(this)
+    this.dir = this.dir.bind(this)
+    this.dirxml = this.dirxml.bind(this)
+    this.clear = this.clear.bind(this)
+    this.profile = this.profile.bind(this)
+    this.profileEnd = this.profileEnd.bind(this)
+    this.timeStamp = this.timeStamp.bind(this)
   }
 
   // Core logging methods
