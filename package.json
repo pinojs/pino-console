@@ -1,6 +1,6 @@
 {
   "name": "pino-console",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "WHATWG Console API adapter for Pino loggers",
   "main": "index.js",
   "types": "index.d.ts",
