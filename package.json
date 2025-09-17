@@ -22,6 +22,14 @@
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinojs/pino-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pinojs/pino-console/issues"
+  },
+  "homepage": "https://github.com/pinojs/pino-console#readme",
   "devDependencies": {
     "@types/node": "^24.5.0",
     "eslint": "^9.35.0",
