@@ -1,0 +1,47 @@
+name: Publish release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version number to tag and release'
+        required: true
+        type: string
+      prerelease:
+        description: 'Release as pre-release'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  release-npm:
+    runs-on: ubuntu-latest
+    environment: main
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install npm -g
+      - run: npm install
+      - name: Change version number
+        run: |
+          npm version ${{ inputs.version }} --no-git-tag-version
+      - name: Run tests
+        run: npm test
+      - name: Run linting
+        run: npm run lint
+      - name: GIT commit and push all changed files
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add package.json
+          git commit -m "Bumped v${{ inputs.version }}"
+          git tag v${{ inputs.version }}
+          git push origin HEAD:${{ github.ref }}
+          git push origin v${{ inputs.version }}
+      - run: npm publish --access public --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
