@@ -1,6 +1,5 @@
 import pino from 'pino'
 import { expect, test } from 'tstyche'
-
 import Console from '../index.js'
 
 const logger = pino()
