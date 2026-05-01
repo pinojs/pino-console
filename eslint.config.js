@@ -1,5 +1,6 @@
 'use strict'
 
 module.exports = require('neostandard')({
-  ignores: ['coverage/**', 'dist/**', 'build/**']
+  ignores: ['coverage/**', 'dist/**', 'build/**'],
+  ts: true
 })
